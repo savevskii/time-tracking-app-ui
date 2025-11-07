@@ -52,3 +52,9 @@ export interface TokenParsedMinimal {
         roles?: string[];
     };
 }
+
+export interface AppRuntimeConfig {
+    keycloakUrl: string;
+    keycloakRealm: string;
+    keycloakClientId: string;
+}
