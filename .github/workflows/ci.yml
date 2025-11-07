@@ -12,6 +12,10 @@ on:
 env:
   CI: true
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   quality-checks:
     name: Lint, Test, and Build
@@ -98,6 +102,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.version }}-${{ steps.vars.outputs.short_sha }}
