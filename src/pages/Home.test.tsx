@@ -30,7 +30,7 @@ describe('Home (role-aware)', () => {
         mockAuth.isAuthenticated = true;
         mockAuth.isAdmin = false;
 
-        renderWithProviders(<Home />);
+        renderWithProviders(<Home />, { withAuthProvider: false });
 
         expect(screen.getByRole('button', { name: /log time/i })).toBeInTheDocument();
         expect(screen.queryByRole('button', { name: /admin dashboard/i })).not.toBeInTheDocument();
@@ -42,7 +42,7 @@ describe('Home (role-aware)', () => {
         mockAuth.isAuthenticated = true;
         mockAuth.isAdmin = true;
 
-        renderWithProviders(<Home />);
+        renderWithProviders(<Home />, { withAuthProvider: false });
 
         expect(screen.getByRole('button', { name: /log time/i })).toBeInTheDocument();
         expect(screen.getByRole('button', { name: /admin dashboard/i })).toBeInTheDocument();

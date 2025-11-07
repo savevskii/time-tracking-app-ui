@@ -1,8 +1,17 @@
 import { screen } from '@testing-library/react';
+import type { ReactNode } from 'react';
 import { renderWithProviders } from '@/test/render';
 import Dashboard from './Dashboard';
 import { server } from '@/mocks/server';
 import { http, HttpResponse } from 'msw';
+
+vi.mock('recharts', async () => {
+    const actual = await vi.importActual<typeof import('recharts')>('recharts');
+    return {
+        ...actual,
+        ResponsiveContainer: ({ children }: { children: ReactNode }) => <div data-testid="mock-responsive">{children}</div>,
+    };
+});
 
 describe('Dashboard (admin)', () => {
     it('shows KPI cards and table', async () => {
@@ -15,8 +24,8 @@ describe('Dashboard (admin)', () => {
 
         // Table & rows
         expect(await screen.findByText(/Projects overview/i)).toBeInTheDocument();
-        expect(await screen.findByText('TrackLight')).toBeInTheDocument();
-        expect(screen.getByText('SolidTime')).toBeInTheDocument();
+        expect(await screen.findByRole('cell', { name: 'TrackLight' })).toBeInTheDocument();
+        expect(screen.getByRole('cell', { name: 'SolidTime' })).toBeInTheDocument();
     });
 
     it('shows error when overview fails', async () => {

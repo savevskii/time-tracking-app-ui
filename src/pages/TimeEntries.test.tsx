@@ -14,7 +14,7 @@ beforeEach(() => {
 
 describe('TimeEntries page', () => {
     it('renders list and can create a new entry', async () => {
-        renderWithProviders(<TimeEntries />, '/entries');
+        renderWithProviders(<TimeEntries />, { route: '/entries' });
 
         // initial item
         expect(await screen.findByText(/Initial setup/i)).toBeInTheDocument();
@@ -33,7 +33,7 @@ describe('TimeEntries page', () => {
     });
 
     it('validates end after start (button disabled)', async () => {
-        renderWithProviders(<TimeEntries />, '/entries');
+        renderWithProviders(<TimeEntries />, { route: '/entries' });
 
         await screen.findByText(/Initial setup/i);
 
@@ -49,7 +49,7 @@ describe('TimeEntries page', () => {
     it('can delete an entry', async () => {
         vi.spyOn(window, 'confirm').mockReturnValue(true);
 
-        renderWithProviders(<TimeEntries />, '/entries');
+        renderWithProviders(<TimeEntries />, { route: '/entries' });
 
         const row = await screen.findByText(/Initial setup/i);
         const item = row.closest('li') ?? row.parentElement!;
@@ -68,7 +68,7 @@ describe('TimeEntries page', () => {
             http.get('*/api/time-entries', () => HttpResponse.error())
         );
 
-        renderWithProviders(<TimeEntries />, '/entries');
+        renderWithProviders(<TimeEntries />, { route: '/entries' });
 
         expect(await screen.findByText(/Failed to load time entries/i)).toBeInTheDocument();
     });
