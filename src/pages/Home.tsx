@@ -57,7 +57,7 @@ export default function Home() {
                 </div>
 
                 <p className="mt-10 text-center text-sm text-gray-500">
-                    Built for a diploma thesis • CI/CD with Spring Boot + React + Jenkins + K8s
+                    Built for a diploma thesis • CI/CD with Spring Boot + React + K8s
                 </p>
             </div>
         </section>

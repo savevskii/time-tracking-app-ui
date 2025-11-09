@@ -12,7 +12,8 @@ cat > "$CONFIG_PATH" <<EOF
 window.__APP_CONFIG__ = {
     keycloakUrl: "$(escape_js_string "${KEYCLOAK_URL:-}")",
     keycloakRealm: "$(escape_js_string "${KEYCLOAK_REALM:-}")",
-    keycloakClientId: "$(escape_js_string "${KEYCLOAK_CLIENT_ID:-}")"
+    keycloakClientId: "$(escape_js_string "${KEYCLOAK_CLIENT_ID:-}")",
+    apiBaseUrl: "$(escape_js_string "${API_BASE_URL:-}")"
 };
 EOF
 

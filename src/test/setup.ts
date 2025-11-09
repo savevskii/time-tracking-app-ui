@@ -5,6 +5,17 @@ import { vi } from 'vitest';
 import { keycloakMock, resetKeycloakMock } from './keycloak.mock';
 import ResizeObserver from 'resize-observer-polyfill';
 
+const defaultConfig = {
+    keycloakUrl: 'http://localhost:8080',
+    keycloakRealm: 'dev',
+    keycloakClientId: 'time-tracking-app',
+    apiBaseUrl: 'http://localhost:9191',
+};
+
+if (typeof window !== 'undefined') {
+    window.__APP_CONFIG__ = defaultConfig;
+}
+
 const chartRect = {
     width: 800,
     height: 400,

@@ -51,10 +51,12 @@ export interface TokenParsedMinimal {
     realm_access?: {
         roles?: string[];
     };
+    resource_access?: Record<string, { roles?: string[] }>;
 }
 
 export interface AppRuntimeConfig {
     keycloakUrl: string;
     keycloakRealm: string;
     keycloakClientId: string;
+    apiBaseUrl: string;
 }

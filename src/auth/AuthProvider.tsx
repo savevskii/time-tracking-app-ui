@@ -3,10 +3,24 @@ import keycloak from "@/auth/keycloak";
 import { AuthContext, type AuthContextType } from '@/auth/AuthContext';
 import type { Role, TokenParsedMinimal } from '@/types';
 
-function extractRoles(tokenParsed: TokenParsedMinimal): Role[] {
+const KNOWN_ROLES: Role[] = ['admin', 'user'];
+
+export function extractRoles(tokenParsed?: TokenParsedMinimal): Role[] {
     if (!tokenParsed) return [];
+
     const realmRoles = tokenParsed.realm_access?.roles ?? [];
-    return realmRoles.filter((r): r is Role => r === 'admin' || r === 'user');
+    const resourceRoles = Object.values(tokenParsed.resource_access ?? {}).flatMap((entry) => entry.roles ?? []);
+    const normalized = new Set<Role>();
+
+    [...realmRoles, ...resourceRoles].forEach((role) => {
+        if (!role) return;
+        const value = role.toLowerCase();
+        if (KNOWN_ROLES.includes(value as Role)) {
+            normalized.add(value as Role);
+        }
+    });
+
+    return Array.from(normalized);
 }
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
