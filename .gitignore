@@ -17,6 +17,8 @@ coverage/
 .vscode/*
 !.vscode/extensions.json
 .idea
+!.idea/runConfigurations/
+!.idea/runConfigurations/*.xml
 .DS_Store
 *.suo
 *.ntvs*
