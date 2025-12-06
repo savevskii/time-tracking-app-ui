@@ -76,9 +76,7 @@ jobs:
         id: vars
         run: |
           VERSION=$(node -p "require('./package.json').version")
-          SHORT_SHA=${GITHUB_SHA::7}
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "short_sha=$SHORT_SHA" >> "$GITHUB_OUTPUT"
           echo "Image version: $VERSION ($SHORT_SHA)"
 
       - name: Set up QEMU
@@ -93,7 +91,6 @@ jobs:
         with:
           images: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=${{ steps.vars.outputs.version }}-${{ steps.vars.outputs.short_sha }}
             type=raw,value=${{ steps.vars.outputs.version }}
             type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
 
